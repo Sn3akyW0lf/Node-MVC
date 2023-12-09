@@ -1,15 +1,15 @@
-const User = require('../models/user');
+const Users = require('../models/users');
 
 exports.postAddUser = async (req, res, next) => {
     try {
     const name = req.body.name;
     const email = req.body.email;
     const phone = req.body.phone;
-    const user = new User(null, name, phone, email);
+    const user = new Users(null, name, phone, email);
 
     console.log(req.body)
 
-    const data = await User.create({
+    const data = await Users.create({
         name: name,
         phone: phone,
         email: email
@@ -22,7 +22,7 @@ exports.postAddUser = async (req, res, next) => {
 
 exports.getAllUsers = async (req, res, next) => {
     try {
-        const data = await User.findAll();
+        const data = await Users.findAll();
         res.status(201).json({allUserDetails: data});
     } catch (err) {
         console.log(err);
@@ -35,12 +35,12 @@ exports.deleteUser = async (req, res, next) => {
         console.log(req.body);
         const userId = req.body.id;
 
-        User.findByPk(userId)
+        Users.findByPk(userId)
         .then(user => {
             return user.destroy();
         })
         .then(result => {
-            console.log('Destroyed User');
+            console.log('Destroyed Users');
         })
     } catch (err) {
         console.log(err);
